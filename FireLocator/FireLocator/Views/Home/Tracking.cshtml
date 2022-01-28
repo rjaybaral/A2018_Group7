@@ -1,0 +1,183 @@
+﻿@model IEnumerable<FireLocator.Models.User_Info>
+@{
+    ViewBag.Title = "Tracking";
+}
+<div id="googleMap" style="width:100%;height:600px; margin-top:50px;">
+
+</div>
+    <script language="javascript">
+        function myMap() {
+            var mapProp= {
+                center: new google.maps.LatLng(14.490852, 121.0529293),
+                zoom:14,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var model = @Html.Raw(Json.Encode(Model));
+            for (var item in model){
+                var lat1 = parseFloat(model[item].Latitude);
+                var long1 = parseFloat(model[item].Longhitude);
+                var marker = new google.maps.Marker({ position: { lat: lat1, lng: long1 }, map: map });
+            }
+            
+                    
+        }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtAUTCi3y1Jw7m8qeugkCTal4jwO345sY&callback=myMap"></script>
+
+
+
+<div class="container-fluid">
+    <h2>List of User</h2>
+    <p>The table list of all user in their situation.</p>
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <span><i class="bi bi-table me-2"></i></span> Data Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example"
+                               class="table table-striped data-table"
+                               style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Item ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Gas Level</th>
+                                    <th>Heat Level</th>
+                                    <th>Latitude</th>
+                                    <th>Longhitude</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Item)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Fullname)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Contact)</td>
+                                        @if (int.Parse(item.Gas_Level) <= 250)
+                                        {
+                                            <td style="color:#295c0a; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Gas_Level)
+                                            </td>
+                                        }
+                                        else if (int.Parse(item.Gas_Level) >= 251 && int.Parse(item.Gas_Level) <= 450)
+                                        {
+                                            <td style="color:#c77b04; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Gas_Level)
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Gas_Level)
+                                            </td>
+                                        }
+
+                                        @if (int.Parse(item.Heat_Level) <= 250)
+                                        {
+                                            <td style="color:#295c0a; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Heat_Level)
+                                            </td>
+                                        }
+                                        else if (int.Parse(item.Heat_Level) >= 251 && int.Parse(item.Heat_Level) <= 450)
+                                        {
+                                            <td style="color:#c77b04; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Heat_Level)
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Heat_Level)
+                                            </td>
+                                        }
+                                        <td>@Html.DisplayFor(modelItem => item.Latitude)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Longhitude)</td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = Html.DisplayFor(modelItem => item.Item) }) |
+                                            @Html.ActionLink("Details", "Details", new { id = Html.DisplayFor(modelItem => item.Item) }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = Html.DisplayFor(modelItem => item.Item) })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Item ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Gas Level</th>
+                                    <th>Heat Level</th>
+                                    <th>Latitude</th>
+                                    <th>Longhitude</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../js/jquery.dataTables.min.js"></script>
+    <script src="../../js/dataTables.bootstrap5.min.js"></script>
+<script>
+        const charts = document.querySelectorAll(".chart");
+
+        charts.forEach(function (chart) {
+            var ctx = chart.getContext("2d");
+            var myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    datasets: [
+                      {
+                          label: "# of Votes",
+                          data: [12, 19, 3, 5, 2, 3],
+                          backgroundColor: [
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)",
+                            "rgba(75, 192, 192, 0.2)",
+                            "rgba(153, 102, 255, 0.2)",
+                            "rgba(255, 159, 64, 0.2)",
+                          ],
+                          borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(75, 192, 192, 1)",
+                            "rgba(153, 102, 255, 1)",
+                            "rgba(255, 159, 64, 1)",
+                          ],
+                          borderWidth: 1,
+                      },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        });
+
+        $(document).ready(function () {
+            $(".data-table").each(function (_, table) {
+                $(table).DataTable();
+            });
+        });
+
+</script>

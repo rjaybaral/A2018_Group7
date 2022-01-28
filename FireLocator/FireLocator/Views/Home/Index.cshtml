@@ -1,0 +1,272 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm())
+{
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="https://gcdn.pbrd.co/images/6UlDiKKk5NFz.jpg" alt="New York" width="1200" height="700">
+            <div class="carousel-caption">
+                <h3>Taguig City</h3>
+                <p>The atmosphere in Taguig City has been changed!</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <img src="https://gcdn.pbrd.co/images/HnswJC2udveh.jpg" alt="Chicago" width="1200" height="700">
+            <div class="carousel-caption">
+                <h3>Paranaque City</h3>
+                <p>Thank you, Paranaque City - A night we won't forget.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <img src="https://gcdn.pbrd.co/images/rpHdT6dOPiwq.png" alt="Los Angeles" width="1200" height="700">
+            <div class="carousel-caption">
+                <h3>Makati City</h3>
+                <p>Also known as Bonifacia Global City. Tourist Spot Area</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<!-- Container (The Band Section) -->
+<div id="band" class="container text-center">
+    <h3>FIRE LOCATOR SYSTEM</h3>
+    <p style="font-family:'Century Gothic'; line-height:24px; font-size:17px"><em>Fast Services</em></p>
+    <p style="font-family:'Century Gothic'; line-height:27px; font-size:15px">To create an early fire detection system capable of detecting municipal circumstances and quickly alerting the fire service to the incident's location. This study made use of developmental research and the Arduino Uno. This system will give everyone an early warning while also ensuring that no alarm goes unnoticed or neglected and that immediate action is taken. The developers came up with the idea of developing a system that would enable firefighters respond faster in an emergency and reduce the time it takes to notify the fire department about fires in Taguig City. The internet will make communication between a homeowner and the fire department much easier. The internet-connected fire alarm was connected to the fire department's control room, which provided the data that would be sent via the internet.</p>
+    <br>
+    <div class="row">
+        <div class="col-sm-4">
+            <p class="text-center"  style="font-family:'Century Gothic';font-size:16px;"><strong>Fire Detector</strong></p><br>
+            <a href="#demo" data-toggle="collapse">
+                <img src="https://gcdn.pbrd.co/images/tGWXpEJILD2T.png" class="img-circle person" alt="Random Name" width="255" height="255">
+            </a>
+            <div id="demo" class="collapse">
+                <p>Fire Detect</p>
+                <p>Using arduino & Wifi Module</p>
+                <p>and other things!</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <p class="text-center"   style="font-family:'Century Gothic';font-size:16px;"><strong>Geolocation Warning</strong></p><br>
+            <a href="#demo2" data-toggle="collapse">
+                <img src="https://gcdn.pbrd.co/images/XL5Z3BjjZx98.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+            </a>
+            <div id="demo2" class="collapse">
+                <p>Mark Danger</p>
+                <p>Using Googme Map</p>
+                <p>Show Address or Geolocation</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <p class="text-center"   style="font-family:'Century Gothic';font-size:16px;"><strong>Firefighters Service</strong></p><br>
+            <a href="#demo3" data-toggle="collapse">
+                <img src="https://gcdn.pbrd.co/images/0SbqJiwNh1gj.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+            </a>
+            <div id="demo3" class="collapse">
+                <p>Firefighters Service</p>
+                <p>Show route in Google Map</p>
+                <p>Extinguish Fire</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Container (TOUR Section) -->
+<div id="tour" class="bg-1">
+    <div class="container">
+        <h3 class="text-center">APPLY IN OUR SERVICES</h3>
+        <p class="text-center">We ensure your safetiest and fast services to extinguish fire as soon as possible</p>
+
+
+        <div class="row">
+            <form>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="usr">Fullname:</label>
+                        <input type="text" class="form-control" id="Fullname" name="Fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Email:</label>
+                        <input type="text" class="form-control" id="Email" name="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Contact #:</label>
+                        <input type="text" class="form-control" id="Contact" name="Contact" maxlength="11" required>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="usr">Complete Address:</label>
+                        <input type="text" class="form-control" id="Address" name="Address" required>
+                    </div>
+                        <div class="form-group">
+                            <label for="sel1">City</label>
+                            <select class="form-control" id="City"  name="City" >
+                                <option value="Taguig City">Taguig City</option>
+                                <option value="Makati City">Makati City</option>
+                                <option value="Muntinlupa City">Muntinlupa City</option>
+                                <option value="Paranaque City">Paranaque City</option>
+                                <option value="Pasay City">Pasay City</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Item ID #:</label>
+                        <input type="text" class="form-control" id="Item" maxlength="11" name="Item" required>
+                    </div>
+                    @*<button type="button" class="btn btn-primary">Register Account</button>*@
+
+                    <input type="submit" class="btn btn-primary" value="Register">
+
+                    <input type="hidden" class="form-control" value="0" name="Heat_Level">
+                    <input type="hidden" class="form-control" value="0" name="Latitude">
+                    <input type="hidden" class="form-control" value="0" name="Longhitude">
+                    <input type="hidden" class="form-control" value="0" name="Gas_Level">
+                </div>
+                </form>
+                <div class="col-sm-4">
+                    <div id="googleMap" style="width:100%;height:400px;">
+
+                    </div>
+
+                    <script>
+                        function myMap() {
+                            var mapProp = {
+                                center: new google.maps.LatLng(51.508742, -0.120850),
+                                zoom: 5,
+                            };
+                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                        }
+                    </script>
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtAUTCi3y1Jw7m8qeugkCTal4jwO345sY&callback=myMap"></script>
+
+                </div>
+</div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4><span class="glyphicon glyphicon-lock"></span> Tickets</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="psw"><span class="glyphicon glyphicon-shopping-cart"></span> Tickets, $23 per person</label>
+                            <input type="number" class="form-control" id="psw" placeholder="How many?">
+                        </div>
+                        <div class="form-group">
+                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Send To</label>
+                            <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                        </div>
+                        <button type="submit" class="btn btn-block">
+                            Pay
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove"></span> Cancel
+                    </button>
+                    <p>Need <a href="#">help?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Container (Contact Section) -->
+<div id="contact" class="container">
+    <h3 class="text-center">Contact</h3>
+    <p class="text-center"><em>We love our fans!</em></p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <p>Fan? Drop a note.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
+            <p><span class="glyphicon glyphicon-phone"></span>Phone: +00 1515151515</p>
+            <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="name" name="name"  placeholder="Name" type="text" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="email" name="email"  placeholder="Email" type="email" required>
+                </div>
+            </div>
+            <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+            <br>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <button class="btn pull-right" type="submit">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h3 class="text-center">From The Team MaiTeam Group</h3>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">James</a></li>
+        <li><a data-toggle="tab" href="#menu1">Jeaneve</a></li>
+        <li><a data-toggle="tab" href="#menu2">R-jay</a></li>
+        <li><a data-toggle="tab" href="#menu3">Jerreme</a></li>
+        <li><a data-toggle="tab" href="#menu4">Mohidden</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h2>James Lopez, Supporting</h2>
+            <p   style="font-family:'Century Gothic';font-size:15px;">Man, we've been on the road for some time now. Looking forward to lorem ipsum.</p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h2>Jeaneve Hermeno, Gathering Data</h2>
+            <p   style="font-family:'Century Gothic';font-size:15px;">Always a pleasure people! Hope you enjoyed it as much as I did. Could I BE.. any more pleased?</p>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h2>R-jay Baral, Developer</h2>
+            <p  style="font-family:'Century Gothic';font-size:15px;">I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <h2>Jerreme Caasi, Leader</h2>
+            <p  style="font-family:'Century Gothic';font-size:15px;">I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
+        </div>
+        <div id="menu4" class="tab-pane fade">
+            <h2>Mohidden Kamil, Searcher</h2>
+            <p  style="font-family:'Century Gothic';font-size:15px;">I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
+        </div>
+    </div>
+</div>
+
+}

@@ -1,0 +1,391 @@
+﻿
+@model FireLocator.Models.Main_Info
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+    <title>Frontendfunn - Bootstrap 5 Admin Dashboard Template</title>
+</head>
+<body>
+
+    <!-- offcanvas -->
+    <div class="container-fluid" style="margin-top:80px">
+        <div class="row">
+            <div class="col-md-12">
+                <p style="font-family:Verdana; font-size:24px; font-weight:bold; color:black">Dashboard</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="card bg-primary text-white h-100">
+                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/EWgZVxCZKq7j.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;"/>@Model.total_user</div>
+                   
+                    <div class="card-footer d-flex">
+                        Total User
+                        <span class="ms-auto">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card bg-warning text-white h-100">
+                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/tDyucWwVoNmH.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;" />@Model.light</div>
+                    <div class="card-footer d-flex">
+                        <a href="@Url.Action("Light", "Home")" style="color:white">
+                            Light Fire
+                            <span class="ms-auto">
+                                <i class="bi bi-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/kd9kzoejaVpA.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;" />@Model.heavy</div>
+                    <div class="card-footer d-flex">
+                        <a href="@Url.Action("Heavy", "Home")" style="color:white">
+                            Heavy Fire
+                            <span class="ms-auto">
+                                <i class="bi bi-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card bg-danger text-white h-100">
+                    <div class="card-body py-5" style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/F6zycd4YpZlz.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;"/>@Model.total_fire_victim</div>
+                    <div class="card-footer d-flex">
+                        <a href="@Url.Action("FireVictim", "Home")" style="color:white">
+                            Total Fire Victim
+                            <span class="ms-auto">
+                                <i class="bi bi-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
+                        Bar Graph of User
+                    </div>
+                    <div class="card-body">
+                        <canvas class="charts" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
+                        Bar Graph of Fire Victim
+                    </div>
+                    <div class="card-body">
+                        <canvas class="chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <span><i class="bi bi-table me-2"></i></span> Data Table
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example"
+                                   class="table table-striped data-table"
+                                   style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Item ID</th>
+                                        <th>Name</th>
+                                        <th>Contact</th>
+                                        <th>Gas Level</th>
+                                        <th>Heat Level</th>
+                                        <th>Latitude</th>
+                                        <th>Longhitude</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.userInfo)
+                                    {
+
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.Item)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Fullname)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Contact)</td>
+                                            @if (int.Parse(item.Gas_Level) <= 250)
+                                            {
+                                                <td style="color:#295c0a; font-weight:bold;">
+                                                    @Html.DisplayFor(modelItem => item.Gas_Level)
+                                                </td>
+                                            }
+                                            else if (int.Parse(item.Gas_Level) >= 251 && int.Parse(item.Gas_Level)<=450)
+                                            {
+                                                <td style="color:#c77b04; font-weight:bold;">
+                                                    @Html.DisplayFor(modelItem => item.Gas_Level)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:red; font-weight:bold;">
+                                                    @Html.DisplayFor(modelItem => item.Gas_Level)
+                                                </td>
+                                            }
+
+                                            @if (int.Parse(item.Heat_Level) <= 250)
+                                            {
+                                                <td style="color:#295c0a; font-weight:bold;">
+                                                    @Html.DisplayFor(modelItem => item.Heat_Level)
+                                                </td>
+                                            }
+                                            else if (int.Parse(item.Heat_Level) >= 251 && int.Parse(item.Heat_Level) <= 450)
+                                            {
+                                                <td style="color:#c77b04; font-weight:bold;">
+                                                    @Html.DisplayFor(modelItem => item.Heat_Level)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:red; font-weight:bold;">
+                                                    @Html.DisplayFor(modelItem => item.Heat_Level)
+                                                </td>
+                                            }
+                                            <td>@Html.DisplayFor(modelItem => item.Latitude)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Longhitude)</td>
+                                            <td>
+                                                <a href="#AddVictim" data-toggle="modal" data-target="#@item.Item">Add Victim</a> |
+                                                @Html.ActionLink("Edit", "Edit1", new { id = Html.DisplayFor(modelItem => item.Item) }) |
+                                                @Html.ActionLink("Details", "Details1", new { id = Html.DisplayFor(modelItem => item.Item) }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = Html.DisplayFor(modelItem => item.Item) })
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Item ID</th>
+                                        <th>Name</th>
+                                        <th>Contact</th>
+                                        <th>Gas Level</th>
+                                        <th>Heat Level</th>
+                                        <th>Latitude</th>
+                                        <th>Longhitude</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../js/jquery.dataTables.min.js"></script>
+    <script src="../../js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        const charts = document.querySelectorAll(".charts");
+        var makati = 0, paranaque = 0, taguig=0, pasay=0, muntinlupa=0;
+        var model = @Html.Raw(Json.Encode(Model.userInfo));
+        for (var item in model){
+            var city = (model[item].City);
+            if (city == "Makati City"){
+                makati++;
+            }else if (city == "Paranaque City"){
+                paranaque++;
+            }else if (city == "Taguig City"){
+                taguig++;
+            }else if (city == "Pasay City"){
+                pasay++;
+            }else if (city == "Muntinlupa City"){
+                muntinlupa++;
+            }
+        }
+        charts.forEach(function (chart) {
+            var ctx = chart.getContext("2d");
+            var myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Taguig City", "Makati City", "Paranaque City", "Pasay City", "Muntinlupa City" ],
+                    datasets: [
+                      {
+                          label: "# of Users",
+                          data: [taguig, makati, paranaque,  pasay, muntinlupa],
+                          backgroundColor: [
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)",
+                            "rgba(75, 192, 192, 0.2)",
+                            "rgba(153, 102, 255, 0.2)",
+                            "rgba(255, 159, 64, 0.2)",
+                          ],
+                          borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(75, 192, 192, 1)",
+                            "rgba(153, 102, 255, 1)",
+                            "rgba(255, 159, 64, 1)",
+                          ],
+                          borderWidth: 1,
+                      },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        });
+
+        const charts1 = document.querySelectorAll(".chart");
+        var makati1 = 0, paranaque1 = 0, taguig1=0, pasay1=0, muntinlupa1=0;
+        makati1 =  @Html.Raw(Json.Encode(Model.makati));
+        paranaque1 =  @Html.Raw(Json.Encode(Model.paranaque));
+        taguig1 =  @Html.Raw(Json.Encode(Model.taguig));
+        pasay1 =  @Html.Raw(Json.Encode(Model.pasay));
+        muntinlupa1 =  @Html.Raw(Json.Encode(Model.muntinlupa));
+        charts1.forEach(function (chart1) {
+            var ctx1 = chart1.getContext("2d");
+            var myChart1 = new Chart(ctx1, {
+                type: "bar",
+                data: {
+                    labels: ["Taguig City", "Makati City", "Paranaque City", "Pasay City", "Muntinlupa City" ],
+                    datasets: [
+                      {
+                          label: "# of Users Fire Victim",
+                          data: [taguig1, makati1, paranaque1,  pasay1, muntinlupa1],
+                          backgroundColor: [
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)",
+                            "rgba(75, 192, 192, 0.2)",
+                            "rgba(153, 102, 255, 0.2)",
+                            "rgba(255, 159, 64, 0.2)",
+                          ],
+                          borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(75, 192, 192, 1)",
+                            "rgba(153, 102, 255, 1)",
+                            "rgba(255, 159, 64, 1)",
+                          ],
+                          borderWidth: 1,
+                      },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        });
+
+        $(document).ready(function () {
+            $(".data-table").each(function (_, table) {
+                $(table).DataTable();
+            });
+        });
+
+    </script>
+
+@foreach (var item in Model.userInfo)
+{
+    <!-- The Modal -->
+    <div class="modal fade" id="@item.Item">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form method="POST" name="@item.Item" id="@item.Item">
+                        <p style="font-size:25px; font-weight:bold; text-align:center; font-family:Arial; color:black;">Fire Victim</p>
+                        <div class="form-group">
+                            <label for="usr">Item ID:</label>
+                            <input type="hidden" class="form-control" id="Item" name="Item" value="@item.Item">
+                            <input type="text" class="form-control"  value="@item.Item" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Fullname:</label>
+                            <input type="hidden" class="form-control" id="Fullname" name="Fullname" value="@item.Fullname">
+                            <input type="text" class="form-control" value="@item.Fullname" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Address:</label>
+                            <input type="hidden" class="form-control" id="Address" name="Address" value="@item.Address">
+                            <input type="text" class="form-control" value="@item.Address" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">City:</label>
+                            <input type="hidden" class="form-control" id="City" name="City" value="@item.City">
+                            <input type="text" class="form-control" value="@item.City" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Latitude:</label>
+                            <input type="hidden" class="form-control"  id="Latitude" name="Latitude" value="@item.Latitude">
+                            <input type="text" class="form-control"  value="@item.Latitude" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Longhitude:</label>
+                            <input type="hidden" class="form-control"  id="Longhitude" name="Longhitude" value="@item.Longhitude">
+                            <input type="text" class="form-control"   value="@item.Longhitude" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1">Status:</label>
+                            <select class="form-control" id="Status" name="Status">
+                                <option value="Light">Light</option>
+                                <option value="Heavy">Heavy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Reason:</label>
+                            <input type="text" class="form-control" id="Reason" name="Reason" required>
+                        </div>
+                        <center>
+                            <input type="submit" name="@item.Item" id="@item.Item" class="btn btn-primary" value="Add Victim">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </center>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+</body>
+</html>
+}

@@ -1,0 +1,157 @@
+﻿@model FireLocator.Models.User_Info
+
+@{
+    ViewBag.Title = "Details1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>User Information</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt >
+                @Html.DisplayNameFor(model => model.Fullname)
+            </dt>
+
+            <dd >
+                @Html.DisplayFor(model => model.Fullname)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                <br />
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd >
+                <br />
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+
+            <dd >
+                <br />
+                @Html.DisplayFor(model => model.City)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Item)
+            </dt>
+
+            <dd >
+                <br />
+                @Html.DisplayFor(model => model.Item)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Contact)
+            </dt>
+
+            <dd >
+                <br />
+                @Html.DisplayFor(model => model.Contact)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Gas_Level)
+            </dt>
+
+            @if (int.Parse(Model.Gas_Level) <= 250)
+            {
+                <dd style="color:#295c0a;font-weight:bold;">
+                    <br />
+                    @Html.DisplayFor(model => model.Gas_Level)
+                </dd>
+            }
+            else if (int.Parse(Model.Gas_Level) >= 251 && int.Parse(Model.Gas_Level) <= 450)
+            {
+                <dd style="color:#c77b04;font-weight:bold;">
+                    <br />
+                    @Html.DisplayFor(model => model.Gas_Level)
+                </dd>
+            }
+            else
+            {
+                <dd style="color:red;font-weight:bold;">
+                    <br />
+                    @Html.DisplayFor(model => model.Gas_Level)
+                </dd>
+            }
+
+
+
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Heat_Level)
+            </dt>
+
+            @if (int.Parse(Model.Heat_Level) <= 250)
+            {
+                <dd style="color:#295c0a;font-weight:bold;">
+                    <br />
+                    @Html.DisplayFor(model => model.Heat_Level)
+                </dd>
+            }
+            else if (int.Parse(Model.Heat_Level) >= 251 && int.Parse(Model.Heat_Level) <= 450)
+            {
+                <dd style="color:#c77b04;font-weight:bold;">
+                    <br />
+                    @Html.DisplayFor(model => model.Heat_Level)
+                </dd>
+            }
+            else
+            {
+                <dd style="color:red;font-weight:bold;">
+                    <br />
+                    @Html.DisplayFor(model => model.Heat_Level)
+                </dd>
+            }
+
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Latitude)
+            </dt>
+
+            <dd >
+                <br />
+                @Html.DisplayFor(model => model.Latitude)
+            </dd>
+
+            <dt >
+                <br />
+                @Html.DisplayNameFor(model => model.Longhitude)
+            </dt>
+
+            <dd >
+                <br />
+                @Html.DisplayFor(model => model.Longhitude)
+            </dd>
+
+        </dl>
+    </div>
+    <p style="font-family:'Century Gothic';font-size:15px;">
+        @Html.ActionLink("Edit", "Edit1", new { id = Model.Item }) |
+        @Html.ActionLink("Back to List", "Dashboard")
+    </p>
+
+</div>
