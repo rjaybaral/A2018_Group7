@@ -1,7 +1,7 @@
 ﻿@model FireLocator.Models.Victim_Info
 
 @{
-    ViewBag.Title = "VictimEdit";
+    ViewBag.Title = "HeavyEdit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -28,8 +28,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
-                                        @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
+                    @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -37,8 +37,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Fullname, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Fullname, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
-                                        @Html.EditorFor(model => model.Fullname, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.EditorFor(model => model.Fullname, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
+                    @Html.EditorFor(model => model.Fullname, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.Fullname, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -64,8 +64,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
-                                        @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
+                    @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -73,8 +73,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Longhitude, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Longhitude, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
-                                        @Html.EditorFor(model => model.Longhitude, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.EditorFor(model => model.Longhitude, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
+                    @Html.EditorFor(model => model.Longhitude, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.Longhitude, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -105,8 +105,8 @@
         </div>
     }
 
-    <div  style="font-family:'Century Gothic';font-size:15px;">
-        @Html.ActionLink("Back to List", "FireVictim")
+    <div style="font-family:'Century Gothic';font-size:15px;">
+        @Html.ActionLink("Back to List", "HeavyList")
     </div>
 
 </div>

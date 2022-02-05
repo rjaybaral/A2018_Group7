@@ -246,6 +246,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\bg1.jpg" />
+    <Content Include="Image\bg2.jpg" />
+    <Content Include="Image\bg3.png" />
+    <Content Include="Image\firefighter_white.png" />
+    <Content Include="Image\fire_white.png" />
+    <Content Include="Image\heavy_white.png" />
+    <Content Include="Image\house_fire.png" />
+    <Content Include="Image\image1.png" />
+    <Content Include="Image\image2.jpg" />
+    <Content Include="Image\image3.jpg" />
+    <Content Include="Image\marker_green.png" />
+    <Content Include="Image\user_white.png" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\dataTables.bootstrap5.min.js" />
     <Content Include="js\jquery-3.5.1.js" />
@@ -315,6 +327,14 @@
     <Content Include="Views\Home\FireVictim.cshtml" />
     <Content Include="Views\Home\VictimDetails.cshtml" />
     <Content Include="Views\Home\VictimEdit.cshtml" />
+    <Content Include="Views\Home\HeavyList.cshtml" />
+    <Content Include="Views\Home\LightList.cshtml" />
+    <Content Include="Views\Home\HeavyDetails.cshtml" />
+    <Content Include="Views\Home\HeavyEdit.cshtml" />
+    <Content Include="Views\Home\LightDetails.cshtml" />
+    <Content Include="Views\Home\LightEdit.cshtml" />
+    <Content Include="Views\Home\Alert.cshtml" />
+    <Content Include="Views\Home\LocateDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

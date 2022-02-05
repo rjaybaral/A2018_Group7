@@ -75,11 +75,11 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Gas_Level, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Gas_Status, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Gas_Level, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
-                    @Html.EditorFor(model => model.Gas_Level, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.Gas_Level, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Gas_Status, new { htmlAttributes = new { @class = "form-control", type = "hidden" } })
+                    @Html.EditorFor(model => model.Gas_Status, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Gas_Status, "", new { @class = "text-danger" })
                 </div>
             </div>
 

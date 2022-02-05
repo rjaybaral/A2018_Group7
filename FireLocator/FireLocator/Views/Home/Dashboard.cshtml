@@ -17,7 +17,11 @@
 
 
     <!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
-    <title>Frontendfunn - Bootstrap 5 Admin Dashboard Template</title>
+    <title>Dashboard Fire Locator</title>
+    <script>
+        
+    </script>
+
 </head>
 <body>
 
@@ -25,13 +29,13 @@
     <div class="container-fluid" style="margin-top:80px">
         <div class="row">
             <div class="col-md-12">
-                <p style="font-family:Verdana; font-size:24px; font-weight:bold; color:black">Dashboard</p>
+                <p style="font-family:Verdana; font-size:24px; font-weight:bold; color:black">Dashboard </p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3 mb-3">
                 <div class="card bg-primary text-white h-100">
-                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/EWgZVxCZKq7j.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;"/>@Model.total_user</div>
+                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="~/Image/user_white.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;"/>@Model.total_user</div>
                    
                     <div class="card-footer d-flex">
                         Total User
@@ -43,9 +47,9 @@
             </div>
             <div class="col-md-3 mb-3">
                 <div class="card bg-warning text-white h-100">
-                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/tDyucWwVoNmH.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;" />@Model.light</div>
+                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="~/Image/firefighter_white.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;" />@Model.light</div>
                     <div class="card-footer d-flex">
-                        <a href="@Url.Action("Light", "Home")" style="color:white">
+                        <a href="@Url.Action("LightList", "Home")" style="color:white">
                             Light Fire
                             <span class="ms-auto">
                                 <i class="bi bi-chevron-right"></i>
@@ -56,9 +60,9 @@
             </div>
             <div class="col-md-3 mb-3">
                 <div class="card bg-success text-white h-100">
-                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/kd9kzoejaVpA.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;" />@Model.heavy</div>
+                    <div class="card-body py-5"  style="font-size:40px; font-weight:bold"><img src="~/Image/heavy_white.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;" />@Model.heavy</div>
                     <div class="card-footer d-flex">
-                        <a href="@Url.Action("Heavy", "Home")" style="color:white">
+                        <a href="@Url.Action("HeavyList", "Home")" style="color:white">
                             Heavy Fire
                             <span class="ms-auto">
                                 <i class="bi bi-chevron-right"></i>
@@ -69,7 +73,7 @@
             </div>
             <div class="col-md-3 mb-3">
                 <div class="card bg-danger text-white h-100">
-                    <div class="card-body py-5" style="font-size:40px; font-weight:bold"><img src="https://gcdn.pbrd.co/images/F6zycd4YpZlz.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;"/>@Model.total_fire_victim</div>
+                    <div class="card-body py-5" style="font-size:40px; font-weight:bold"><img src="~/Image/fire_white.png" height="50" width="50" style="margin-top:-10px; margin-right:20px;"/>@Model.total_fire_victim</div>
                     <div class="card-footer d-flex">
                         <a href="@Url.Action("FireVictim", "Home")" style="color:white">
                             Total Fire Victim
@@ -105,6 +109,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-check" style="margin-bottom:10px;">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" id="autoRefresh" checked> &nbsp;&nbsp;&nbsp;&nbsp; Auto refresh data....
+            </label>
+        </div>
         <div class="row">
             <div class="col-md-12 mb-3">
                 <div class="card">
@@ -121,7 +131,7 @@
                                         <th>Item ID</th>
                                         <th>Name</th>
                                         <th>Contact</th>
-                                        <th>Gas Level</th>
+                                        <th>Gas Status</th>
                                         <th>Heat Level</th>
                                         <th>Latitude</th>
                                         <th>Longhitude</th>
@@ -136,45 +146,12 @@
                                             <td>@Html.DisplayFor(modelItem => item.Item)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Fullname)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Contact)</td>
-                                            @if (int.Parse(item.Gas_Level) <= 250)
-                                            {
-                                                <td style="color:#295c0a; font-weight:bold;">
-                                                    @Html.DisplayFor(modelItem => item.Gas_Level)
-                                                </td>
-                                            }
-                                            else if (int.Parse(item.Gas_Level) >= 251 && int.Parse(item.Gas_Level)<=450)
-                                            {
-                                                <td style="color:#c77b04; font-weight:bold;">
-                                                    @Html.DisplayFor(modelItem => item.Gas_Level)
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td style="color:red; font-weight:bold;">
-                                                    @Html.DisplayFor(modelItem => item.Gas_Level)
-                                                </td>
-                                            }
 
-                                            @if (int.Parse(item.Heat_Level) <= 250)
-                                            {
-                                                <td style="color:#295c0a; font-weight:bold;">
-                                                    @Html.DisplayFor(modelItem => item.Heat_Level)
-                                                </td>
-                                            }
-                                            else if (int.Parse(item.Heat_Level) >= 251 && int.Parse(item.Heat_Level) <= 450)
-                                            {
-                                                <td style="color:#c77b04; font-weight:bold;">
-                                                    @Html.DisplayFor(modelItem => item.Heat_Level)
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td style="color:red; font-weight:bold;">
-                                                    @Html.DisplayFor(modelItem => item.Heat_Level)
-                                                </td>
-                                            }
-                                            <td>@Html.DisplayFor(modelItem => item.Latitude)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Longhitude)</td>
+                                            <td id="@("textGas"+item.Item)"></td>
+                                            <td id="@("textHeatLevel"+item.Item)"></td>
+
+                                            <td id="@("textLatitude"+item.Item)"></td>
+                                            <td id="@("textLonghitude"+item.Item)"></td>
                                             <td>
                                                 <a href="#AddVictim" data-toggle="modal" data-target="#@item.Item">Add Victim</a> |
                                                 @Html.ActionLink("Edit", "Edit1", new { id = Html.DisplayFor(modelItem => item.Item) }) |
@@ -190,7 +167,7 @@
                                         <th>Item ID</th>
                                         <th>Name</th>
                                         <th>Contact</th>
-                                        <th>Gas Level</th>
+                                        <th>Gas Status</th>
                                         <th>Heat Level</th>
                                         <th>Latitude</th>
                                         <th>Longhitude</th>
@@ -386,6 +363,79 @@
         </div>
     </div>
 }
+
+    <script>
+        $(document).ready(function(){
+            var interval = setInterval(function(){
+                const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                fetch(api_url)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    for (var item in data) {
+                        if ((data[item].Gas_Status)== "No Gas Detect!"){
+                            $("#textGas" + item).attr('style','color: #295c0a; font-weight:bold');
+                        }else{
+                            $("#textGas" + item).attr('style','color: red; font-weight:bold');
+                        }
+                        $("#textGas" + item).text(data[item].Gas_Status);
+
+                        if (parseFloat(data[item].Heat_Level)<= 100 ){
+                            $("#textHeatLevel" + item).attr('style','color: #295c0a; font-weight:bold');
+                        }else if (parseFloat(data[item].Heat_Level)>= 101 && parseFloat(data[item].Heat_Level)<=200){
+                            $("#textHeatLevel" + item).attr('style','color: #c77b04; font-weight:bold');
+                        }else{
+                            $("#textHeatLevel" + item).attr('style','color: red; font-weight:bold');
+                        }
+
+                        $("#textHeatLevel" + item).text(data[item].Heat_Level);
+                        $("#textContact" + item).text(data[item].Contact);
+                        $("#textLatitude" + item).text(data[item].Latitude);
+                        $("#textLonghitude" + item).text(data[item].Longhitude);
+                    }
+                });
+            },1000);
+
+            $("#autoRefresh").click(function(){
+                var checkBox = document.getElementById("autoRefresh");
+                if (checkBox.checked){
+                    interval = setInterval(function(){
+                        const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                        fetch(api_url)
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            for (var item in data) {
+                                if ((data[item].Gas_Status)== "No Gas Detect!"){
+                                    $("#textGas" + item).attr('style','color: #295c0a; font-weight:bold');
+                                }else{
+                                    $("#textGas" + item).attr('style','color: red; font-weight:bold');
+                                }
+                                $("#textGas" + item).text(data[item].Gas_Status);
+
+                                if (parseFloat(data[item].Heat_Level)<= 100 ){
+                                    $("#textHeatLevel" + item).attr('style','color: #295c0a; font-weight:bold');
+                                }else if (parseFloat(data[item].Heat_Level)>= 101 && parseFloat(data[item].Heat_Level)<=200){
+                                    $("#textHeatLevel" + item).attr('style','color: #c77b04; font-weight:bold');
+                                }else{
+                                    $("#textHeatLevel" + item).attr('style','color: red; font-weight:bold');
+                                }
+
+                                $("#textHeatLevel" + item).text(data[item].Heat_Level);
+                                $("#textContact" + item).text(data[item].Contact);
+                                $("#textLatitude" + item).text(data[item].Latitude);
+                                $("#textLonghitude" + item).text(data[item].Longhitude);
+                            }
+                        });
+                    },1000);
+                } else { 
+                    clearInterval(interval); 
+                }
+            });
+
+            
+        });
+    </script>
 </body>
 </html>
 }

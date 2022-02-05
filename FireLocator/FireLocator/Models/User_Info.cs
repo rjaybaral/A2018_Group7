@@ -13,7 +13,7 @@ namespace FireLocator.Models
         public string Contact { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public string Gas_Level { get; set; }
+        public string Gas_Status { get; set; }
         public string Heat_Level { get; set; }
         public string Heat_Level_Last { get; set; }
         public string Latitude { get; set; }

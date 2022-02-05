@@ -57,8 +57,27 @@ namespace FireLocator.Controllers
 
         }
 
+
+
         [HttpGet]
         public ActionResult Tracking()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("User_Info");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<User_Info>();
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    list.Add(JsonConvert.DeserializeObject<User_Info>(((JProperty)item).Value.ToString()));
+                }
+            }
+            return View(list);
+        }
+
+        [HttpGet]
+        public ActionResult Alert()
         {
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("User_Info");
@@ -92,7 +111,58 @@ namespace FireLocator.Controllers
         }
 
         [HttpGet]
+        public ActionResult HeavyList()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Victim");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<Victim_Info>();
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    Victim_Info v = JsonConvert.DeserializeObject<Victim_Info>(((JProperty)item).Value.ToString());
+                    if (v.Status.Equals("Heavy"))
+                    {
+                        list.Add(v);
+                    }
+                }
+            }
+            return View(list);
+        }
+
+        [HttpGet]
+        public ActionResult LightList()
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Victim");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<Victim_Info>();
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    Victim_Info v = JsonConvert.DeserializeObject<Victim_Info>(((JProperty)item).Value.ToString());
+                    if (v.Status.Equals("Light"))
+                    {
+                        list.Add(v);
+                    }
+                }
+            }
+            return View(list);
+        }
+
+        [HttpGet]
         public ActionResult Details(string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("User_Info/" + id);
+            dynamic data = JsonConvert.DeserializeObject<User_Info>(response.Body.ToString());
+            return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult LocateDetails(string id)
         {
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("User_Info/" + id);
@@ -129,6 +199,28 @@ namespace FireLocator.Controllers
                 FirebaseResponse response = client.Delete("Victim/" + id);
             }
             return RedirectToAction("FireVictim");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteHeavy(string id)
+        {
+            if (id != null)
+            {
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse response = client.Delete("Victim/" + id);
+            }
+            return RedirectToAction("HeavyList");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteLight(string id)
+        {
+            if (id != null)
+            {
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse response = client.Delete("Victim/" + id);
+            }
+            return RedirectToAction("LightList");
         }
 
         [HttpGet]
@@ -279,7 +371,43 @@ namespace FireLocator.Controllers
         }
 
         [HttpGet]
+        public ActionResult HeavyDetails(String id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Victim/" + id);
+            dynamic data = JsonConvert.DeserializeObject<Victim_Info>(response.Body.ToString());
+            return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult LightDetails(String id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Victim/" + id);
+            dynamic data = JsonConvert.DeserializeObject<Victim_Info>(response.Body.ToString());
+            return View(data);
+        }
+
+        [HttpGet]
         public ActionResult VictimEdit(String id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Victim/" + id);
+            dynamic data = JsonConvert.DeserializeObject<Victim_Info>(response.Body.ToString());
+            return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult HeavyEdit(String id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Victim/" + id);
+            dynamic data = JsonConvert.DeserializeObject<Victim_Info>(response.Body.ToString());
+            return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult LightEdit(String id)
         {
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("Victim/" + id);
@@ -297,6 +425,30 @@ namespace FireLocator.Controllers
                 FirebaseResponse setResponse = await client.UpdateAsync("Victim/" + victimInfo.ID_victim, victimInfo);
             }
             return RedirectToAction("FireVictim");
+        }
+
+        [HttpPost]
+        public async System.Threading.Tasks.Task<ActionResult> HeavyEdit(Victim_Info victimInfo)
+        {
+
+            if (!(victimInfo.Item == null || victimInfo.Item == "" || victimInfo.ID_victim == null || victimInfo.ID_victim == ""))
+            {
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse setResponse = await client.UpdateAsync("Victim/" + victimInfo.ID_victim, victimInfo);
+            }
+            return RedirectToAction("HeavyList");
+        }
+
+        [HttpPost]
+        public async System.Threading.Tasks.Task<ActionResult> LightEdit(Victim_Info victimInfo)
+        {
+
+            if (!(victimInfo.Item == null || victimInfo.Item == "" || victimInfo.ID_victim == null || victimInfo.ID_victim == ""))
+            {
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse setResponse = await client.UpdateAsync("Victim/" + victimInfo.ID_victim, victimInfo);
+            }
+            return RedirectToAction("LightList");
         }
     }
 }

@@ -2,24 +2,51 @@
 @{
     ViewBag.Title = "Tracking";
 }
-<div id="googleMap" style="width:100%;height:600px; margin-top:50px;">
+
+<div id="googleMap" style="width:100%;height:600px; margin-top:60px;">
 
 </div>
-    <script language="javascript">
+   
+<script language="javascript">
         function myMap() {
-            var mapProp= {
-                center: new google.maps.LatLng(14.490852, 121.0529293),
-                zoom:14,
-            };
-            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-            var model = @Html.Raw(Json.Encode(Model));
-            for (var item in model){
-                var lat1 = parseFloat(model[item].Latitude);
-                var long1 = parseFloat(model[item].Longhitude);
-                var marker = new google.maps.Marker({ position: { lat: lat1, lng: long1 }, map: map });
-            }
-            
-                    
+            $(document).ready(function () {
+                var gmarkers = [];
+                var mapProp= {
+                    center: new google.maps.LatLng(14.490852, 121.0529293),
+                    zoom: 14,
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                setInterval(function () {
+                    const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                    fetch(api_url)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        for (i = 0; i < gmarkers.length; i++) {
+                            gmarkers[i].setMap(null);
+                        }
+                        for (var item in data) {
+                            var lat1 = parseFloat(data[item].Latitude);
+                            var long1 = parseFloat(data[item].Longhitude);
+                            var level = parseFloat(data[item].Heat_Level);
+                            if (level <=150){
+                                var marker = new google.maps.Marker({
+                                    icon: "/Image/marker_green.png",
+                                    position: { lat: lat1, lng: long1 }, map: map,
+                                    title: data[item].Fullname+"\nHeat Level:"+data[item].Heat_Level+"\nStatus:"+data[item].Gas_Status,
+                                });
+                            }else{
+                                var marker = new google.maps.Marker({
+                                    icon: "/Image/house_fire.png",
+                                    position: { lat: lat1, lng: long1 }, map: map,
+                                    title: data[item].Fullname+"\nHeat Level:"+data[item].Heat_Level+"\nStatus:"+data[item].Gas_Status,
+                                });
+                            }
+                            gmarkers.push(marker);
+                        }
+                    });
+                },2000);
+            });
         }
     </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtAUTCi3y1Jw7m8qeugkCTal4jwO345sY&callback=myMap"></script>
@@ -28,8 +55,12 @@
 
 <div class="container-fluid">
     <h2>List of User</h2>
-    <p>The table list of all user in their situation.</p>
-
+    <p   style="font-family:'Century Gothic';font-size:15px;">The table list of all user in their situation.</p>
+    <div class="form-check" style="margin-bottom:10px;">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="autoRefresh" checked> &nbsp;&nbsp;&nbsp;&nbsp; Auto refresh data....
+        </label>
+    </div>
     <div class="row">
         <div class="col-md-12 mb-3">
             <div class="card">
@@ -60,45 +91,12 @@
                                         <td>@Html.DisplayFor(modelItem => item.Item)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Fullname)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Contact)</td>
-                                        @if (int.Parse(item.Gas_Level) <= 250)
-                                        {
-                                            <td style="color:#295c0a; font-weight:bold;">
-                                                @Html.DisplayFor(modelItem => item.Gas_Level)
-                                            </td>
-                                        }
-                                        else if (int.Parse(item.Gas_Level) >= 251 && int.Parse(item.Gas_Level) <= 450)
-                                        {
-                                            <td style="color:#c77b04; font-weight:bold;">
-                                                @Html.DisplayFor(modelItem => item.Gas_Level)
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td style="color:red; font-weight:bold;">
-                                                @Html.DisplayFor(modelItem => item.Gas_Level)
-                                            </td>
-                                        }
 
-                                        @if (int.Parse(item.Heat_Level) <= 250)
-                                        {
-                                            <td style="color:#295c0a; font-weight:bold;">
-                                                @Html.DisplayFor(modelItem => item.Heat_Level)
-                                            </td>
-                                        }
-                                        else if (int.Parse(item.Heat_Level) >= 251 && int.Parse(item.Heat_Level) <= 450)
-                                        {
-                                            <td style="color:#c77b04; font-weight:bold;">
-                                                @Html.DisplayFor(modelItem => item.Heat_Level)
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td style="color:red; font-weight:bold;">
-                                                @Html.DisplayFor(modelItem => item.Heat_Level)
-                                            </td>
-                                        }
-                                        <td>@Html.DisplayFor(modelItem => item.Latitude)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Longhitude)</td>
+                                        <td id="@("textGas"+item.Item)"></td>
+                                        <td id="@("textHeatLevel"+item.Item)"></td>
+
+                                        <td id="@("textLatitude"+item.Item)"></td>
+                                        <td id="@("textLonghitude"+item.Item)"></td>
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = Html.DisplayFor(modelItem => item.Item) }) |
                                             @Html.ActionLink("Details", "Details", new { id = Html.DisplayFor(modelItem => item.Item) }) |
@@ -126,6 +124,9 @@
         </div>
     </div>
 </div>
+
+   
+
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
     <script src="../../js/jquery-3.5.1.js"></script>
@@ -180,4 +181,77 @@
             });
         });
 
+</script>
+
+<script>
+        $(document).ready(function(){
+            var interval = setInterval(function(){
+                const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                fetch(api_url)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    for (var item in data) {
+                        if ((data[item].Gas_Status)== "No Gas Detect!"){
+                            $("#textGas" + item).attr('style','color: #295c0a; font-weight:bold');
+                        }else{
+                            $("#textGas" + item).attr('style','color: red; font-weight:bold');
+                        }
+                        $("#textGas" + item).text(data[item].Gas_Status);
+
+                        if (parseFloat(data[item].Heat_Level)<= 100 ){
+                            $("#textHeatLevel" + item).attr('style','color: #295c0a; font-weight:bold');
+                        }else if (parseFloat(data[item].Heat_Level)>= 101 && parseFloat(data[item].Heat_Level)<=200){
+                            $("#textHeatLevel" + item).attr('style','color: #c77b04; font-weight:bold');
+                        }else{
+                            $("#textHeatLevel" + item).attr('style','color: red; font-weight:bold');
+                        }
+
+                        $("#textHeatLevel" + item).text(data[item].Heat_Level);
+                        $("#textContact" + item).text(data[item].Contact);
+                        $("#textLatitude" + item).text(data[item].Latitude);
+                        $("#textLonghitude" + item).text(data[item].Longhitude);
+                    }
+                });
+            },1000);
+
+            $("#autoRefresh").click(function(){
+                var checkBox = document.getElementById("autoRefresh");
+                if (checkBox.checked){
+                    interval = setInterval(function(){
+                        const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                        fetch(api_url)
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            for (var item in data) {
+                                if ((data[item].Gas_Status)== "No Gas Detect!"){
+                                    $("#textGas" + item).attr('style','color: #295c0a; font-weight:bold');
+                                }else{
+                                    $("#textGas" + item).attr('style','color: red; font-weight:bold');
+                                }
+                                $("#textGas" + item).text(data[item].Gas_Status);
+
+                                if (parseFloat(data[item].Heat_Level)<= 100 ){
+                                    $("#textHeatLevel" + item).attr('style','color: #295c0a; font-weight:bold');
+                                }else if (parseFloat(data[item].Heat_Level)>= 101 && parseFloat(data[item].Heat_Level)<=200){
+                                    $("#textHeatLevel" + item).attr('style','color: #c77b04; font-weight:bold');
+                                }else{
+                                    $("#textHeatLevel" + item).attr('style','color: red; font-weight:bold');
+                                }
+
+                                $("#textHeatLevel" + item).text(data[item].Heat_Level);
+                                $("#textContact" + item).text(data[item].Contact);
+                                $("#textLatitude" + item).text(data[item].Latitude);
+                                $("#textLonghitude" + item).text(data[item].Longhitude);
+                            }
+                        });
+                    },1000);
+                } else {
+                    clearInterval(interval);
+                }
+            });
+
+
+        });
 </script>

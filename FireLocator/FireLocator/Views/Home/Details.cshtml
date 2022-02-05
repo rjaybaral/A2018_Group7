@@ -71,28 +71,28 @@
 
             <dt >
                 <br />
-                @Html.DisplayNameFor(model => model.Gas_Level)
+                @Html.DisplayNameFor(model => model.Gas_Status)
             </dt>
 
-            @if (int.Parse(Model.Gas_Level) <= 250)
+            @if (Model.Gas_Status.Equals("No Gas Detect!"))
             {
-                <dd style="color:#295c0a;font-weight:bold;">
+                <dd style="color:#295c0a; font-weight:bold;">
                     <br />
-                    @Html.DisplayFor(model => model.Gas_Level)
+                    @Html.DisplayFor(model => model.Gas_Status)
                 </dd>
             }
-            else if (int.Parse(Model.Gas_Level) >= 251 && int.Parse(Model.Gas_Level) <= 450)
+            else if (Model.Gas_Status.Equals("Gas Detected!"))
             {
-                <dd style="color:#c77b04;font-weight:bold;">
+                <dd style="color:red; font-weight:bold;">
                     <br />
-                    @Html.DisplayFor(model => model.Gas_Level)
+                    @Html.DisplayFor(model => model.Gas_Status)
                 </dd>
             }
             else
             {
-                <dd style="color:red;font-weight:bold;">
+                <dd style="color:black; font-weight:bold;">
                     <br />
-                    @Html.DisplayFor(model => model.Gas_Level)
+                    @Html.DisplayFor(model => model.Gas_Status)
                 </dd>
             }
 
@@ -104,14 +104,14 @@
                 @Html.DisplayNameFor(model => model.Heat_Level)
             </dt>
 
-            @if (int.Parse(Model.Heat_Level) <= 250)
+            @if (int.Parse(Model.Heat_Level) <= 100)
             {
                 <dd style="color:#295c0a;font-weight:bold;">
                     <br />
                     @Html.DisplayFor(model => model.Heat_Level)
                 </dd>
             }
-            else if (int.Parse(Model.Heat_Level) >= 251 && int.Parse(Model.Heat_Level) <= 450)
+            else if (int.Parse(Model.Heat_Level) >= 101 && int.Parse(Model.Heat_Level) <= 200)
             {
                 <dd style="color:#c77b04;font-weight:bold;">
                     <br />
@@ -152,5 +152,27 @@
         @Html.ActionLink("Edit", "Edit", new {  id = Model.Item  }) |
         @Html.ActionLink("Back to List", "Tracking")
     </p>
+
+    <div id="googleMap" style="width:100%;height:600px; margin-top:50px;">
+
+    </div>
+    <script language="javascript">
+        function myMap() {
+            var data = @Html.Raw(Json.Encode(Model));
+            if (data!=null){
+                var lat = parseFloat(@Model.Latitude);
+                var long = parseFloat(@Model.Longhitude);
+                var mapProp= {
+                    center: new google.maps.LatLng(lat, long),
+                    zoom:14,
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                var marker = new google.maps.Marker({ position: { lat: lat, lng: long }, map: map });
+            }
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtAUTCi3y1Jw7m8qeugkCTal4jwO345sY&callback=myMap"></script>
+
+
 
 </div>

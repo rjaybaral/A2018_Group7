@@ -1,0 +1,227 @@
+﻿@model IEnumerable<FireLocator.Models.User_Info>
+
+@{
+    ViewBag.Title = "Alert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid" style="margin-top:60px;">
+    <h2>List of User</h2>
+    <p style="font-family:'Century Gothic';font-size:15px;">The table list of all user in their situation.</p>
+    <div class="form-check" style="margin-bottom:10px; ">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="autoRefresh" checked> &nbsp;&nbsp;&nbsp;&nbsp; Auto refresh data....
+        </label>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <span><i class="bi bi-table me-2"></i></span> Data Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example"
+                               class="table table-striped data-table"
+                               style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Item ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Gas Level</th>
+                                    <th>Heat Level</th>
+                                    <th>Latitude</th>
+                                    <th>Longhitude</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="divexample">
+                                @*@foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Item)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Fullname)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Contact)</td>
+
+                                        <td id="@("textGas"+item.Item)"></td>
+                                        <td id="@("textHeatLevel"+item.Item)"></td>
+
+                                        <td id="@("textLatitude"+item.Item)"></td>
+                                        <td id="@("textLonghitude"+item.Item)"></td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = Html.DisplayFor(modelItem => item.Item) }) |
+                                            @Html.ActionLink("Details", "Details", new { id = Html.DisplayFor(modelItem => item.Item) }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = Html.DisplayFor(modelItem => item.Item) })
+                                        </td>
+                                    </tr>
+                                }*@
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Item ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Gas Level</th>
+                                    <th>Heat Level</th>
+                                    <th>Latitude</th>
+                                    <th>Longhitude</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function(){
+            var interval = setInterval(function(){
+                const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                fetch(api_url)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    const eDIV = document.getElementById("divexample");
+                    eDIV.innerHTML = '';
+                    for (var item in data) {
+                        if (data[item].Gas_Status == "Gas Detected!" || parseFloat(data[item].Heat_Level) >= 150) {
+                            const e1 = document.createElement("td");
+                            const e2 = document.createElement("td");
+                            const e3 = document.createElement("td");
+                            const e4 = document.createElement("td");
+                            const e5 = document.createElement("td");
+                            const e6 = document.createElement("td");
+                            const e7 = document.createElement("td");
+                            const aa = document.createElement("a");
+                            const e8 = document.createElement("td");
+                            const eData1 = document.createTextNode(data[item].Item);
+                            const eData2 = document.createTextNode(data[item].Fullname);
+                            const eData3 = document.createTextNode(data[item].Contact);
+                            const eData4 = document.createTextNode(data[item].Gas_Status);
+                            const eData5 = document.createTextNode(data[item].Heat_Level);
+                            const eData6 = document.createTextNode(data[item].Latitude);
+                            const eData7 = document.createTextNode(data[item].Longhitude);
+                            const eData8 = document.createTextNode("Location");
+                            e1.appendChild(eData1);
+                            e2.appendChild(eData2);
+                            e3.appendChild(eData3);
+                            if ((data[item].Gas_Status) == "No Gas Detect!") {
+                                e4.style.cssText = 'color: #295c0a; font-weight:bold';
+                            } else {
+                                e4.style.cssText = 'color: red; font-weight:bold';
+                            }
+                            e4.appendChild(eData4);
+                            if (parseFloat(data[item].Heat_Level)<= 100 ){
+                                e5.style.cssText =  'color: #295c0a; font-weight:bold';
+                            }else if (parseFloat(data[item].Heat_Level)>= 101 && parseFloat(data[item].Heat_Level)<=200){
+                                e5.style.cssText =  'color: #c77b04; font-weight:bold';
+                            }else{
+                                e5.style.cssText = 'color: red; font-weight:bold';
+                            }
+                            e5.appendChild(eData5);
+                            e6.appendChild(eData6);
+                            e7.appendChild(eData7);
+                            aa.setAttribute('href', "LocateDetails/" + item);
+                            aa.appendChild(eData8);
+                            e8.appendChild(aa);
+                            const eTR1 = document.createElement("tr");
+                            eTR1.appendChild(e1);
+                            eTR1.appendChild(e2);
+                            eTR1.appendChild(e3);
+                            eTR1.appendChild(e4);
+                            eTR1.appendChild(e5);
+                            eTR1.appendChild(e6);
+                            eTR1.appendChild(e7);
+                            eTR1.appendChild(e8);
+
+
+                            eDIV.appendChild(eTR1);
+                        }
+
+                        
+                    }
+                });
+            },1000);
+
+            $("#autoRefresh").click(function(){
+                var checkBox = document.getElementById("autoRefresh");
+                if (checkBox.checked){
+                    interval = setInterval(function(){
+                        const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                        fetch(api_url)
+                        .then(res => res.json())
+                        .then(data => {
+                            const eDIV = document.getElementById("divexample");
+                            eDIV.innerHTML = '';
+                            console.log(data);
+                            for (var item in data) {
+                                if (data[item].Gas_Status == "Gas Detected!" || parseFloat(data[item].Heat_Level) >= 150) {
+                                    const e1 = document.createElement("td");
+                                    const e2 = document.createElement("td");
+                                    const e3 = document.createElement("td");
+                                    const e4 = document.createElement("td");
+                                    const e5 = document.createElement("td");
+                                    const e6 = document.createElement("td");
+                                    const e7 = document.createElement("td");
+                                    const aa = document.createElement("a");
+                                    const e8 = document.createElement("td");
+                                    const eData1 = document.createTextNode(data[item].Item);
+                                    const eData2 = document.createTextNode(data[item].Fullname);
+                                    const eData3 = document.createTextNode(data[item].Contact);
+                                    const eData4 = document.createTextNode(data[item].Gas_Status);
+                                    const eData5 = document.createTextNode(data[item].Heat_Level);
+                                    const eData6 = document.createTextNode(data[item].Latitude);
+                                    const eData7 = document.createTextNode(data[item].Longhitude);
+                                    const eData8 = document.createTextNode("Location");
+                                    e1.appendChild(eData1);
+                                    e2.appendChild(eData2);
+                                    e3.appendChild(eData3);
+                                    if ((data[item].Gas_Status) == "No Gas Detect!") {
+                                        e4.style.cssText = 'color: #295c0a; font-weight:bold';
+                                    } else {
+                                        e4.style.cssText = 'color: red; font-weight:bold';
+                                    }
+                                    e4.appendChild(eData4);
+                                    if (parseFloat(data[item].Heat_Level) <= 100) {
+                                        e5.style.cssText = 'color: #295c0a; font-weight:bold';
+                                    } else if (parseFloat(data[item].Heat_Level) >= 101 && parseFloat(data[item].Heat_Level) <= 200) {
+                                        e5.style.cssText = 'color: #c77b04; font-weight:bold';
+                                    } else {
+                                        e5.style.cssText = 'color: red; font-weight:bold';
+                                    }
+                                    e5.appendChild(eData5);
+                                    e6.appendChild(eData6);
+                                    e7.appendChild(eData7);
+                                    aa.setAttribute('href', "LocateDetails/" + item);
+                                    aa.appendChild(eData8);
+                                    e8.appendChild(aa);
+                                    const eTR1 = document.createElement("tr");
+                                    eTR1.appendChild(e1);
+                                    eTR1.appendChild(e2);
+                                    eTR1.appendChild(e3);
+                                    eTR1.appendChild(e4);
+                                    eTR1.appendChild(e5);
+                                    eTR1.appendChild(e6);
+                                    eTR1.appendChild(e7);
+                                    eTR1.appendChild(e8);
+
+
+                                    eDIV.appendChild(eTR1);
+                                }
+                            }
+                        });
+                    },1000);
+                } else {
+                    clearInterval(interval);
+                }
+            });
+
+
+        });
+</script>

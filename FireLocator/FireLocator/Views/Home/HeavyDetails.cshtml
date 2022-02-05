@@ -1,10 +1,9 @@
 ﻿@model FireLocator.Models.Victim_Info
 
 @{
-    ViewBag.Title = "VictimDetails";
+    ViewBag.Title = "HeavyDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="container">
     <h2>Fire Victim Information</h2>
@@ -18,22 +17,22 @@
             @Html.DisplayFor(model => model.ID_victim)
         </dd>
 
-        <dt >
+        <dt>
             <br />
             @Html.DisplayNameFor(model => model.Item)
         </dt>
 
-        <dd  >
+        <dd>
             <br />
             @Html.DisplayFor(model => model.Item)
         </dd>
 
-        <dt >
+        <dt>
             <br />
             @Html.DisplayNameFor(model => model.Fullname)
         </dt>
 
-        <dd  >
+        <dd>
             <br />
             @Html.DisplayFor(model => model.Fullname)
         </dd>
@@ -58,27 +57,27 @@
             @Html.DisplayFor(model => model.City)
         </dd>
 
-        <dt >
+        <dt>
             <br />
             @Html.DisplayNameFor(model => model.Latitude)
         </dt>
 
-        <dd >
+        <dd>
             <br />
             @Html.DisplayFor(model => model.Latitude)
         </dd>
 
-        <dt >
+        <dt>
             <br />
             @Html.DisplayNameFor(model => model.Longhitude)
         </dt>
 
-        <dd >
+        <dd>
             <br />
             @Html.DisplayFor(model => model.Longhitude)
         </dd>
 
-        <dt >
+        <dt>
             <br />
             @Html.DisplayNameFor(model => model.Status)
         </dt>
@@ -89,7 +88,8 @@
                 <br />
                 @Html.DisplayFor(model => model.Status)
             </dd>
-        }else
+        }
+        else
         {
             <dd style="color:#c6b601; font-weight:bold;">
                 <br />
@@ -97,22 +97,21 @@
             </dd>
         }
 
-        <dt >
+        <dt>
             <br />
             @Html.DisplayNameFor(model => model.Reason)
         </dt>
 
-        <dd >
+        <dd>
             <br />
             @Html.DisplayFor(model => model.Reason)
         </dd>
 
     </dl>
     <p style="font-family:'Century Gothic';font-size:15px;">
-        @Html.ActionLink("Edit", "VictimEdit", new {  id = Model.ID_victim }) |
-        @Html.ActionLink("Back to List", "FireVictim")
+        @Html.ActionLink("Edit", "HeavyEdit", new { id = Model.ID_victim }) |
+        @Html.ActionLink("Back to List", "HeavyList")
     </p>
-
     <div id="googleMap" style="width:100%;height:600px; margin-top:50px;">
 
     </div>
@@ -132,6 +131,8 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtAUTCi3y1Jw7m8qeugkCTal4jwO345sY&callback=myMap"></script>
+
+
 
 
 </div>

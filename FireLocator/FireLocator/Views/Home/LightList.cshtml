@@ -1,0 +1,116 @@
+﻿@model IEnumerable<FireLocator.Models.Victim_Info>
+
+@{
+    ViewBag.Title = "LightList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2 style="margin-top:80px;">Fire Victim</h2>
+    <p style="font-family:'Century Gothic';font-size:15px;">Light Status</p>
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <span><i class="bi bi-table me-2"></i></span> Data Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example"
+                               class="table table-striped data-table"
+                               style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>ID Victim</th>
+                                    <th>Item</th>
+                                    <th>Fullname</th>
+                                    <th>Address</th>
+                                    <th>Latitude</th>
+                                    <th>Longhitude</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ID_victim)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Item)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Fullname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Latitude)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Longhitude)
+                                        </td>
+                                        @if (item.Status.Equals("Heavy"))
+                                        {
+                                            <td style="color:red; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:#c6b601; font-weight:bold;">
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Reason)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "LightEdit", new { id = item.ID_victim }) |
+                                            @Html.ActionLink("Details", "LightDetails", new { id = item.ID_victim }) |
+                                            @Html.ActionLink("Delete", "DeleteLight", new { id = item.ID_victim })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID Victim</th>
+                                    <th>Item</th>
+                                    <th>Fullname</th>
+                                    <th>Address</th>
+                                    <th>Latitude</th>
+                                    <th>Longhitude</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="../../js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+<script src="../../js/jquery-3.5.1.js"></script>
+<script src="../../js/jquery.dataTables.min.js"></script>
+<script src="../../js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".data-table").each(function (_, table) {
+            $(table).DataTable();
+        });
+    });
+</script>

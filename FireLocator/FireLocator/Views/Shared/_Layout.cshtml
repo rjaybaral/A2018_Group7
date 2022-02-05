@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <!-- Theme Made By www.w3schools.com - No Copyright -->
-    <title>Bootstrap Theme The Band</title>
+    <title>Fire Locator System</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +21,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
     <style>
@@ -182,7 +182,7 @@
                     <li><a href="@Url.Action("Index", "Home")">HOME</a></li>
                     <li><a href="#band">INFORMATION</a></li>
                     <li><a href="#tour">REGISTER</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="#contact">DEVELOPER</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             MORE
@@ -190,10 +190,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></li>
                             <li><a href="@Url.Action("Tracking", "Home")">Tracking</a></li>
-                            <li><a href="@Url.Action("About", "Home")">Media</a></li>
+                            <li><a href="@Url.Action("FireVictim", "Home")">Fire Victim</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+                    <li><a href="@Url.Action("Alert", "Home")">ALERT <span class="badge badge-light" id="notifyID"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -209,6 +209,27 @@
         </a><br><br>
         <p  style="font-family:'Century Gothic';font-size:15px;">C# Programming Language Project | Fire Locator System Using Arduino | BS Computer Science | 2022</p>
     </footer>
+
+
+
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                var notificationNumber = 0;
+                const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
+                fetch(api_url)
+                .then(res => res.json())
+                .then(data => {
+                    for (var item in data) {
+                        if (parseFloat(data[item].Heat_Level) >= 150) {
+                            notificationNumber += 1;
+                        }
+                    }
+                    $("#notifyID").text(notificationNumber);
+                });
+            }, 1000);
+        });
+    </script>
 
     <script>
 $(document).ready(function(){
@@ -240,6 +261,5 @@ $(document).ready(function(){
   });
 })
     </script>
-
 </body>
 </html>
