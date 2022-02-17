@@ -7,14 +7,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     @*Dashboard stylesheet*@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="../../css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="../../css/style.css" />
 
+
     @*Min CSS Stylesheet*@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    @*Toast Notification*@
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" >
+
     @*Main Final*@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
@@ -183,6 +192,7 @@
                     <li><a href="#band">INFORMATION</a></li>
                     <li><a href="#tour">REGISTER</a></li>
                     <li><a href="#contact">DEVELOPER</a></li>
+                    <li><a href="@Url.Action("Alert", "Home")">ALERT <span class="badge badge-light" id="notifyID"></span></a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             MORE
@@ -193,7 +203,6 @@
                             <li><a href="@Url.Action("FireVictim", "Home")">Fire Victim</a></li>
                         </ul>
                     </li>
-                    <li><a href="@Url.Action("Alert", "Home")">ALERT <span class="badge badge-light" id="notifyID"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -201,9 +210,10 @@
 
    @RenderBody()
 
-
+    <audio src="~/Image/fire_alarm.mp3" id="my_audio" lopp="loop"></audio>
     <!-- Footer -->
     <footer class="text-center">
+
         <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
             <span class="glyphicon glyphicon-chevron-up"></span>
         </a><br><br>
@@ -211,25 +221,71 @@
     </footer>
 
 
-
+    
     <script>
         $(document).ready(function () {
             setInterval(function () {
-                var notificationNumber = 0;
                 const api_url = 'https://arduinoprojectfinal-default-rtdb.firebaseio.com/User_Info.json';
                 fetch(api_url)
                 .then(res => res.json())
                 .then(data => {
+                    var notificationNumber = 0;
+                    $("#notifyID").text(notificationNumber);
                     for (var item in data) {
                         if (parseFloat(data[item].Heat_Level) >= 150) {
                             notificationNumber += 1;
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-left",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "1500",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
+                            toastr.error("Item ID : " + data[item].Item + " - Detect Fire", "Warning")
+                        } else if (data[item].Gas_Status == "Gas Detected!") {
+                            notificationNumber += 1;
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-left",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "1500",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
+                            toastr.warning("Item ID : " + data[item].Item + " - Detect Gas!", "Warning")
                         }
+                    }
+                    if (notificationNumber != 0) {
+                        document.getElementById("my_audio").play();
+                    } else {
+                        document.getElementById("my_audio").stop();
                     }
                     $("#notifyID").text(notificationNumber);
                 });
-            }, 1000);
+            }, 2000);
         });
     </script>
+
+ 
 
     <script>
 $(document).ready(function(){

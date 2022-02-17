@@ -227,6 +227,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Fire_Graph.cs" />
     <Compile Include="Models\Main_Info.cs" />
     <Compile Include="Models\Victim_Info.cs" />
     <Compile Include="Scripts\IdentityModels.cs" />
@@ -250,7 +251,9 @@
     <Content Include="Image\bg2.jpg" />
     <Content Include="Image\bg3.png" />
     <Content Include="Image\firefighter_white.png" />
+    <Content Include="Image\fire_alarm.mp3" />
     <Content Include="Image\fire_white.png" />
+    <Content Include="Image\gas_icon.png" />
     <Content Include="Image\heavy_white.png" />
     <Content Include="Image\house_fire.png" />
     <Content Include="Image\image1.png" />

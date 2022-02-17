@@ -29,15 +29,21 @@
                             var lat1 = parseFloat(data[item].Latitude);
                             var long1 = parseFloat(data[item].Longhitude);
                             var level = parseFloat(data[item].Heat_Level);
-                            if (level <=150){
+                            if (level >=150){
                                 var marker = new google.maps.Marker({
-                                    icon: "/Image/marker_green.png",
+                                    icon: "/Image/house_fire.png",
                                     position: { lat: lat1, lng: long1 }, map: map,
                                     title: data[item].Fullname+"\nHeat Level:"+data[item].Heat_Level+"\nStatus:"+data[item].Gas_Status,
                                 });
+                            } else if (data[item].Gas_Status == "Gas Detected!") {
+                                var marker = new google.maps.Marker({
+                                    icon: "/Image/gas_icon.png",
+                                    position: { lat: lat1, lng: long1 }, map: map,
+                                    title: data[item].Fullname + "\nHeat Level:" + data[item].Heat_Level + "\nStatus:" + data[item].Gas_Status,
+                                });
                             }else{
                                 var marker = new google.maps.Marker({
-                                    icon: "/Image/house_fire.png",
+                                    icon: "/Image/marker_green.png",
                                     position: { lat: lat1, lng: long1 }, map: map,
                                     title: data[item].Fullname+"\nHeat Level:"+data[item].Heat_Level+"\nStatus:"+data[item].Gas_Status,
                                 });
